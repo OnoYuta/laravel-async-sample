@@ -3,4 +3,12 @@ services:
   app: # 任意のサービス名
     build: ./docker/php # ビルドコンテキスト（Dockerfileが置かれているディレクトリ）
     volumes:
-      - ./:/app:cached # defaultはconsistentだがcachedオプションで速度改善
+      - .:/app:cached # defaultはconsistentだがcachedオプションで速度改善
+  web:
+    image: nginx:1.18-alpine
+    ports:
+      - 80:80
+    volumes:
+      - .:/app
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    working_dir: /app
