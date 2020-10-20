@@ -1,0 +1,6 @@
+version: "3.8"
+services:
+  app: # 任意のサービス名
+    build: ./docker/php # ビルドコンテキスト（Dockerfileが置かれているディレクトリ）
+    volumes:
+      - ./:/app:cached # defaultはconsistentだがcachedオプションで速度改善
