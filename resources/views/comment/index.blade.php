@@ -6,6 +6,7 @@
         <div class="col-md-8">
             <div class="card text-center">
                 <div class="card-body p-0">
+                    <comment-create-form-component></comment-create-form-component>
                     <table class='table'>
                         <thead>
                             <tr>
