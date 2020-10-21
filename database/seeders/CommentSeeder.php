@@ -25,9 +25,12 @@ class CommentSeeder extends Seeder
 
         $comments = [];
         for ($i = 0; $i < 100; $i++) {
+            $datetime = $faker->dateTimeBetween;
             $comments[] = [
                 'user_id' => $faker->randomElement($userIdList),
                 'body' => $faker->realText,
+                'created_at' => $datetime,
+                'updated_at' => $datetime,
             ];
         }
 
