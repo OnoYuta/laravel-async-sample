@@ -14,12 +14,15 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         Auth::guard()->login(User::find(1));
 
+        $msg = $request->session()->pull('msg', '');
+
         return view('comment.index')->with([
-            'comments' => Comment::with('user')->orderBy('created_at', 'desc')->paginate(5)
+            'comments' => Comment::with('user')->orderBy('created_at', 'desc')->paginate(5),
+            'msg' => $msg,
         ]);
     }
 
@@ -41,7 +44,14 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        Comment::create([
+            'user_id' => $request->user_id,
+            'body' => $request->body,
+        ]);
+
+        session(['msg' => '投稿が完了しました']);
+
+        return redirect(route('comments.index'));
     }
 
     /**

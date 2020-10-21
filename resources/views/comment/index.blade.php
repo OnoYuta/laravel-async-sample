@@ -15,6 +15,13 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @if($msg)
+                            <tr>
+                                <td colspan="3" class='text-primary text-center'>
+                                    {{ $msg }}
+                                </td>
+                            </tr>
+                            @endif
                             @foreach($comments as $comment)
                             <tr>
                                 <td>{{ $comment->user->name }}</td>
