@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
@@ -14,6 +16,8 @@ class CommentController extends Controller
      */
     public function index()
     {
+        Auth::guard()->login(User::find(1));
+
         return view('comment.index')->with([
             'comments' => Comment::with('user')->orderBy('created_at', 'desc')->paginate(5)
         ]);
@@ -37,7 +41,7 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**
