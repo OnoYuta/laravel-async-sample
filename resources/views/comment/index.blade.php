@@ -6,7 +6,6 @@
         <div class="col-md-8">
             <div class="card text-center">
                 <div class="card-body p-0">
-                    <comment-create-form-component></comment-create-form-component>
                     <table class='table'>
                         <thead>
                             <tr>
@@ -39,32 +38,7 @@
                 <div class="row justify-content-center">{{ $comments->links('vendor.pagination.simple-bootstrap-4-comments') }}</div>
             </div>
             @auth
-            <div class="card text-center mt-3">
-                <div class="card-body p-0">
-                    <form action="{{ route('comments.store') }}" method="post">
-                        @csrf
-                        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                        <table class='table m-0'>
-                            <thead>
-                                <tr>
-                                    <th>投稿内容</th>
-                                    <th>投稿</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class='form-group'>
-                                        <textarea name="body" class='form-control mh-100'></textarea>
-                                    </td>
-                                    <td class='form-group align-middle'>
-                                        <input type="submit" value="投稿" class='form-control btn btn-primary mh-100'>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </form>
-                </div>
-            </div>
+            <comment-create-form-component :url='@json(route("api.comments.store"))' :user_id='@json(Auth::user()->id)'></comment-create-form-component>
             @endauth
         </div>
     </div>

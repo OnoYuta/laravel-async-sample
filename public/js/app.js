@@ -1924,9 +1924,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {
-    console.log('Component mounted.');
+  props: ['url', 'user_id'],
+  data: function data() {
+    return {
+      body: ""
+    };
+  },
+  methods: {
+    post: function post() {
+      var comment = {
+        'user_id': this.user_id,
+        'body': this.body
+      };
+      console.log(comment);
+      axios.post(this.url, comment).then(function (response) {
+        return console.log(response.data);
+      })["catch"](function (response) {
+        return console.log(response);
+      });
+    }
+  },
+  created: function created() {// 定期的に最新の投稿を取得する
   }
 });
 
@@ -37555,28 +37583,59 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "card text-center mt-3" }, [
+    _c("div", { staticClass: "card-body p-0" }, [
+      _c("table", { staticClass: "table m-0" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("tbody", [
+          _c("tr", [
+            _c("td", { staticClass: "form-group" }, [
+              _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.body,
+                    expression: "body"
+                  }
+                ],
+                staticClass: "form-control mh-100",
+                domProps: { value: _vm.body },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.body = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("td", { staticClass: "form-group align-middle" }, [
+              _c("input", {
+                staticClass: "form-control btn btn-primary mh-100",
+                attrs: { type: "submit", value: "投稿" },
+                on: { click: _vm.post }
+              })
+            ])
+          ])
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Example Component")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an example component.\n                "
-              )
-            ])
-          ])
-        ])
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("投稿内容")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("投稿")])
       ])
     ])
   }
