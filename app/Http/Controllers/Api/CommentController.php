@@ -9,9 +9,20 @@ use Illuminate\Http\JsonResponse;
 
 class CommentController extends Controller
 {
+    public function index(Request $request)
+    {
+        $msg = $request->session()->pull('msg', '');
+
+        return new JsonResponse([
+            'comments' => Comment::with('user')->orderBy('created_at', 'desc')->paginate(5),
+            'msg' => $msg,
+        ]);
+    }
+
     public function store(Request $request)
     {
         $comment = Comment::create($request->all());
+        session(['msg' => '投稿が完了しました']);
 
         return new JsonResponse(
             $comment,
